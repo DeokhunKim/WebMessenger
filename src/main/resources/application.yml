@@ -1,0 +1,22 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/Chat?serverTimezone=Asia/Seoul
+    username: admin
+    password: admin
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+
+
+logging.level:
+  org.hibernate.SQL: info
+
+server:
+  port: 8003
