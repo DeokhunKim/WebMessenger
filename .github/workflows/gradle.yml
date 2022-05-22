@@ -26,7 +26,6 @@ jobs:
       - name: Docker build and push to docker hub
         run: |
           echo in docker ${GITHUB_SHA::7} 
-          echo in docker ${ GITHUB_SHA::7 } 
 
       - name: Deploy to AWS EC2
         uses: appleboy/ssh-action@master
@@ -40,7 +39,7 @@ jobs:
           envs: GITHUB-SHA
           script: |
             echo 1 ${{ env.GITHUB_SHA }}
-            echo 2 ${ GITHUB_SHA::7 }
+            echo 2 ${GITHUB_SHA::7}
             echo 3 ${{ secrets.DOCKER_ID }}
             echo 4 ${{ env.TES }}
             docker pull ${{ secrets.DOCKER_ID }}/webmessenger:${{ env.GITHUB_SHA }}
