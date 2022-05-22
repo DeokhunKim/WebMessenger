@@ -42,7 +42,6 @@ jobs:
           docker build -t webmessenger . 
           docker tag webmessenger ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7} 
           docker push ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7}
-          echo docker push ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7}
 
       - name: Deploy to AWS EC2
         uses: appleboy/ssh-action@master
@@ -52,7 +51,7 @@ jobs:
           key: ${{ secrets.AWS_PEM }}
           envs: GITHUB-SHA
           script: |
-            echo docker pull ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7}
+            docker login -u ${{ secrets.DOCKER_ID }} -p ${{ secrets.DOCKER_PASSWORD }} 
             docker pull ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7}
             docker tag ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7} webmessenger
             docker stop webmessenger || true
