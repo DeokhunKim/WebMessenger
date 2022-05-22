@@ -42,6 +42,7 @@ jobs:
           docker build -t webmessenger . 
           docker tag webmessenger ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7} 
           docker push ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7}
+          echo docker push ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7}
 
       - name: Deploy to AWS EC2
         uses: appleboy/ssh-action@master
@@ -53,7 +54,6 @@ jobs:
           script: |
             echo docker pull ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7}
             docker pull ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7}
-            echo docker tag ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7} webmessenger
             docker tag ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7} webmessenger
             docker stop webmessenger
             docker run -d --rm --name webmessenger --network kpp -e SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/chat?useSSL=false webmessenger
