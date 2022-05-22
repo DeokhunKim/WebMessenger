@@ -22,6 +22,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
+      - name: Docker build and push to docker hub
+        run: |
+          echo in docker ${GITHUB_SHA::7} 
+          echo in docker ${ GITHUB_SHA::7 } 
 
       - name: Deploy to AWS EC2
         uses: appleboy/ssh-action@master
