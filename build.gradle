@@ -38,3 +38,14 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+jar {
+	enabled = false
+}
+
+bootJar{
+	archivesBaseName = 'WebMessenger'
+	archiveFileName = 'WebMessenger.jar'
+	archiveVersion = "0.0.0"
+}
+
