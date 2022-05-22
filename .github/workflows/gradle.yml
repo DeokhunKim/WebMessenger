@@ -36,13 +36,10 @@ jobs:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_PEM }}
-          envs: GITHUB-SHA
+          envs: GITHUB_SHA
           script: |
-            echo 1 ${{ env.GITHUB_SHA }}
-            echo 2 ${GITHUB_SHA::7}
-            echo 3 ${{ secrets.DOCKER_ID }}
-            echo 4 ${{ env.TES }}
-            docker pull ${{ secrets.DOCKER_ID }}/webmessenger:${{ env.GITHUB_SHA }}
-            docker tag ${{ secrets.DOCKER_ID }}/webmessenger:${{ env.GITHUB_SHA }} webmessenger
+            echo 1 $GITHUB_SHA
+            docker pull ${{ secrets.DOCKER_ID }}/webmessenger:$GITHUB_SHA
+            docker tag ${{ secrets.DOCKER_ID }}/webmessenger:$GITHUB_SHA webmessenger
             docker stop webmessenger || true
             docker run -d --rm --name webmessenger --network kpp -e SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/chat?useSSL=false webmessenger
