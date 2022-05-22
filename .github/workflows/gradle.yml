@@ -45,14 +45,14 @@ jobs:
 
       - name: Deploy to AWS EC2
         uses: appleboy/ssh-action@master
+        env: 
+            GITHUB-SHA: ${GITHUB_SHA::7}
         with:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_PEM }}
-          envs: GITHUB-SHA
           script: |
-            docker login -u ${{ secrets.DOCKER_ID }} -p ${{ secrets.DOCKER_PASSWORD }} 
-            docker pull ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7}
-            docker tag ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7} webmessenger
+            docker pull ${{ secrets.DOCKER_ID }}/webmessenger:${{env.GITHUB-SHA}}
+            docker tag ${{ secrets.DOCKER_ID }}/webmessenger:${{env.GITHUB-SHA}} webmessenger
             docker stop webmessenger || true
             docker run -d --rm --name webmessenger --network kpp -e SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/chat?useSSL=false webmessenger
