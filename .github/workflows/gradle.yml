@@ -54,4 +54,4 @@ jobs:
             docker pull ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7}
             docker tag ${{ secrets.DOCKER_ID }}/webmessenger:${GITHUB_SHA::7} webmessenger
             docker stop webmessenger || true
-            docker run -d --rm --name webmessenger --network kpp -e SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/chat?useSSL=false webmessenger
+            docker run -d --rm --name webmessenger --network kpp -e SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/chat?useSSL=false -e SPRING_DATASOURCE_USERNAME=${{ secrets.MYSQL_USERNAME }} -e SPRING_DATASOURCE_PASSWORD=${{ secrets.MYSQL_PASSWORD }} webmessenger
