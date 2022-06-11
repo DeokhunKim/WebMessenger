@@ -19,7 +19,6 @@ public class ChatController {
     public String chatController(HttpServletRequest request, Model model){
         String token = Arrays.stream(request.getCookies()).filter(c -> c.getName().equals("kpp_t"))
                 .findFirst().orElse(null).getValue();
-        System.out.println("token = " + token);
         String user = ReadJWT.getUser(token);
 
         model.addAttribute("userName", user);

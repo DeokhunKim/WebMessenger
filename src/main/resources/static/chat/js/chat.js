@@ -56,7 +56,7 @@
 
 <!-- 소켓 핸들러 관련 -->
 
-    var sock = new SockJS('http://localhost:8003/Chat');
+    var sock = new SockJS('http://52.78.234.7:8003/Chat');
     sock.onmessage = onMessage;
     sock.onclose = onClose;
     sock.onopen = onOpen;
