@@ -60,7 +60,7 @@
     sock.onmessage = onMessage;
     sock.onclose = onClose;
     sock.onopen = onOpen;
-    //var userName = '[[${userName}]]';
+    var userName = '[[${userName}]]';
 
 
     function sendMessage(str) {
